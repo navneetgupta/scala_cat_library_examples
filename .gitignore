@@ -52,3 +52,4 @@ bin/
 .project
 .cache-main
 .classpath
+.cache-tests
