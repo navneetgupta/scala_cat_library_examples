@@ -82,4 +82,95 @@ object EitherExamples extends App {
 		case Right(result) ⇒ s"Got reciprocal: ${result}"
 	}
 	println(result1) //Got reciprocal is : 0.5
+
+	/**
+	 * Once you start using Either for all your error-handling, you may quickly run into an issue where you need to call into two separate modules which give back separate kinds of errors
+	 *
+	 * for Example :
+	 * an application that wants to do database things, and then take database values and do service things. Glancing at the types, it looks like flatMap will do it.
+	 * 			def doApp = Database.databaseThings().flatMap(Service.serviceThings)
+	 * This doesn't work! Well, it does, but it gives us Either[Object, ServiceValue] which isn't particularly useful for us
+	 *
+	 *  the type parameters of Either are covariant, so when it sees an Either[E1, A1] and an Either[E2, A2], it will happily try to unify the E1 and E2 in a flatMap call -
+	 *  in our case, the closest common supertype is Object, leaving us with practically no type information to use in our pattern match.
+	 */
+
+	//Solution 1: Application-wide errors
+	object Demo1 {
+		sealed abstract class AppError
+		final case object DatabaseError1 extends AppError
+		final case object DatabaseError2 extends AppError
+		final case object ServiceError1 extends AppError
+		final case object ServiceError2 extends AppError
+
+		trait DatabaseValue
+
+		object Database {
+			def databaseThings(): Either[AppError, DatabaseValue] = ???
+		}
+
+		trait ServiceValue
+
+		object Service {
+			def serviceThings(v: DatabaseValue): Either[AppError, ServiceValue] = ???
+		}
+
+		def doApp = Database.databaseThings().flatMap(Service.serviceThings)
+	}
+
+	/* Above works but if we need to use where we only need to get DatabaseError, and gets an Either[AppError,_] then we need to patternmatch every cases. or atlease with specific and wild cases*/
+
+	/*
+	 * Solution 2: ADTs all the way down
+	 * 		Instead of lumping all our errors into one big ADT, we can instead keep them local to each module, and have an application-wide error ADT that wraps each error ADT we need.
+	 */
+
+	object Demo2 {
+		sealed abstract class DatabaseError
+		trait DatabaseValue
+
+		object Database {
+			def databaseThings(): Either[DatabaseError, DatabaseValue] = ???
+		}
+
+		sealed abstract class ServiceError
+		trait ServiceValue
+
+		object Service {
+			def serviceThings(v: DatabaseValue): Either[ServiceError, ServiceValue] = ???
+		}
+
+		sealed abstract class AppError
+		object AppError {
+			final case class Database(error: DatabaseError) extends AppError
+			final case class Service(error: ServiceError) extends AppError
+		}
+
+		def doApp: Either[AppError, ServiceValue] =
+			Database.databaseThings().leftMap(AppError.Database).
+				flatMap(dv => Service.serviceThings(dv).leftMap(AppError.Service))
+
+		def awesome =
+			doApp match {
+				case Left(AppError.Database(_)) => "something in the database went wrong"
+				case Left(AppError.Service(_)) => "something in the service went wrong"
+				case Right(_) => "everything is alright!"
+			}
+	}
+
+	val either: Either[NumberFormatException, Int] =
+		Either.catchOnly[NumberFormatException]("abc".toInt)
+
+	val right2: Either[String, Int] = Right(41)
+	println(right2.map(_ + 1)) // Right(42)
+
+	val left2: Either[String, Int] = Left("Hello")
+	println(left2.map(_ + 1)) // Left("Hello")
+	println(left2.leftMap(_.reverse)) // Left("olleH")
+
+	println(Either.catchOnly[NumberFormatException]("abc".toInt).isRight) // false
+	println(Either.catchNonFatal(1 / 0).isLeft) // true
+
+	val right3: Either[String, Int] = 42.asRight[String]
+	println(right3) // Right(42)
 }
