@@ -8,7 +8,10 @@ scalaVersion := "2.12.6"
 
 version      := "0.1.0"
 
-scalacOptions += "-Ypartial-unification"
+scalacOptions ++= Seq(
+  "-Xfatal-warnings",
+  "-Ypartial-unification"
+)
 
 libraryDependencies ++= {
   val catVersion = "1.2.0"
