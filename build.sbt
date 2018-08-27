@@ -10,7 +10,8 @@ version      := "0.1.0"
 
 scalacOptions ++= Seq(
   "-Xfatal-warnings",
-  "-Ypartial-unification"
+  "-Ypartial-unification",
+  "-language:higherKinds"
 )
 
 libraryDependencies ++= {
