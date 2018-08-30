@@ -73,9 +73,9 @@ object MonadTransfromersApp extends App {
   type FutureEither[A] = EitherT[Future, String, A]
   type FutureEitherOption[A] = OptionT[FutureEither, A]
 
-  val futureEitherOr: FutureEitherOption[Int] =
-    for {
-      a <- 10.pure[FutureEitherOption]
-      b <- 32.pure[FutureEitherOption]
-    } yield a + b
+//  val futureEitherOr: FutureEitherOption[Int] =
+//    for {
+//      a <- 10.pure[FutureEitherOption]
+//      b <- 32.pure[FutureEitherOption]
+//    } yield a + b
 }
