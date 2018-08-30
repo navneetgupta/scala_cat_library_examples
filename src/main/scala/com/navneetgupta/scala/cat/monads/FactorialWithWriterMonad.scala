@@ -10,11 +10,13 @@ import cats.data.Writer
 
 object FactorialWithWriterMonad extends App {
 
-  def slowly[A](body: => A) =
-    try
-      body
-    finally
-      Thread.sleep(100)
+  def slowly[A](body: => A) = {
+//    try
+//      body
+//    finally
+//      Thread.sleep(100)
+    body
+  }
 
   def factorial(n: Int): Int = {
     val ans = slowly(if (n == 0) 1 else n * factorial(n - 1))
