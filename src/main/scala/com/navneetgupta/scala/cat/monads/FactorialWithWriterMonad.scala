@@ -11,10 +11,10 @@ import cats.data.Writer
 object FactorialWithWriterMonad extends App {
 
   def slowly[A](body: => A) = {
-//    try
-//      body
-//    finally
-//      Thread.sleep(100)
+    try
+      body
+    finally
+      Thread.sleep(100)
     body
   }
 

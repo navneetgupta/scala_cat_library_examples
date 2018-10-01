@@ -15,12 +15,15 @@ object Cat {
 object CatEqApp extends App {
 
   val cat1 = Cat("Garfield", 38, "Orange and Black")
+  val cat3 = Cat("Garfield", 38, "Orange and Black")
   val cat2 = Cat("Heathcliff", 33, "Orange and Black")
 
   val optionCat1 = Option(cat1)
   val optionCat2 = Option.empty[Cat]
 
   println(cat1 === cat2)
+  println(cat1 === cat3)
+  println(cat1 =!= cat2)
   println(optionCat1 === optionCat2)
 
 }

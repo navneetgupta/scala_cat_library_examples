@@ -5,7 +5,9 @@ import cats.{ Monad => Cmonad }
 import cats.implicits._
 
 object IdentityMonad extends App {
-  def sumSquare[F[_]: Cmonad](a: F[Int], b: F[Int]): F[Int] = a.flatMap(x => b.map(y => x * x + y * y))
+  def sumSquare[F[_]: Cmonad](a: F[Int], b: F[Int]): F[Int] =
+    a.flatMap(x =>
+      b.map(y => x * x + y * y))
 
   /**
    * Above method will work for Option,List
@@ -13,6 +15,9 @@ object IdentityMonad extends App {
    */
 
   println(sumSquare(Option(3), Option(4)))
+
+  sumSquare(Option(3), Option(4)) // Will Work perfectly fine
+  //sumSquare(3, 4) // But this will fail
   println(sumSquare(List(1, 2, 3), List(4, 5)))
 
   // println(sumSquare(1, 2))  // will fail.

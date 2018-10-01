@@ -1,8 +1,7 @@
 package com.navneetgupta.scala.cat.monads
 
-import cats.syntax.either._
-
 object EitherMonadApp extends App {
+  import cats.syntax.either._
 
   val either1: Either[String, Int] = Right(10)
   val either2: Either[String, Int] = Right(32)
@@ -12,11 +11,19 @@ object EitherMonadApp extends App {
   } yield a + b
   println(a1)
 
+  // Creating instances Of Either. using asRight,asLeft instead of Right() and Left() has benefit that .asRight[T](Return type will be Either[T,ObjectType])/asLeft[T] (return type will be Either[ObjectType, T])
+  // But Right(a:T)(return type Either[Nothing, T])/Left(a:T)(return type Either[T,Nothing]) will
   val a = 3.asRight[String]
   // a: Either[String,Int] = Right(3)
   val b = 4.asRight[String]
   // b: Either[String,Int] = Right(4)
 
+  //   These “smart constructors” have advantages over Left.apply and Right.apply because they return results of type Either
+  //   instead of Left and Right.
+
+  //val d = "SD".asLeft[]
+
+  val c = Right(2)
   val a2 = for {
     x <- a
     y <- b
@@ -24,6 +31,20 @@ object EitherMonadApp extends App {
 
   println(a2)
 
+  //  def countPositive(nums: List[Int]) =
+  //    nums.foldLeft(Right(0)) { (accumulator, num) =>
+  //      if (num > 0) {
+  //        accumulator.map(_ + 1)
+  //      } else {
+  //        Left("Negative. Stopping!")
+  //      }
+  //    }
+
+  /**
+   *  The Above code fails for two reasons:
+   *       1. the compiler infers the type of the accumulator as Right instead of Either;
+   *       2. we didn’t specify type parameters for Right.apply so the compiler infers the left􏰃 parameter as Nothing.
+   */
   def countPositive(nums: List[Int]) =
     nums.foldLeft(0.asRight[String]) { (accumulator, num) =>
       if (num > 0) {
@@ -38,6 +59,7 @@ object EitherMonadApp extends App {
   println(countPositive(List(1, 2, -3, -4, 5)))
 
   Either.catchOnly[NumberFormatException]("foo".toInt)
+  Either.catchOnly[NumberFormatException]("3".toInt)
   Either.catchNonFatal(sys.error("Badness"))
 
   Either.fromTry(scala.util.Try("foo".toInt))

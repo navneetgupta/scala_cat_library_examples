@@ -28,10 +28,13 @@ object StateMonadApp extends App {
 
   val (state, result) = a.run(10).value
   println(state + "    " + result)
+  // 10    The state is 10
   val state1 = a.runS(10).value
   println(state1)
+  // 10
   val result1 = a.runA(10).value
   println(result1)
+  // The state is 10
 
   /**
    * As we’ve seen with Reader and Writer, the power of the State monad comes from combining instances.
@@ -55,6 +58,8 @@ object StateMonadApp extends App {
 
   val (state2, result2) = both.run(20).value
   println(state2 + "    " + result2)
+
+  // above State is threaded from step to step even though we don’t interact with it in the for comprehension.
 
   val getDemo = State.get[Int]
   println(getDemo.run(10).value)

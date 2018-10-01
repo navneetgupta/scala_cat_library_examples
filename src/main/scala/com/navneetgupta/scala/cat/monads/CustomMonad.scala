@@ -11,7 +11,7 @@ object CustomMonad extends App {
    *       pure
    *       tailRecM
    *
-   * The tailRecM method is an op􏰀misa􏰀on used in Cats to limit the amount of stack space consumed by
+   * The tailRecM method is an optimization used in Cats to limit the amount of stack space consumed by
    * nested calls to flatMap. The technique comes from a 2015 paper by PureScript creator Phil Freeman.
    * The method should recursively call itself un􏰀l the result of fn returns a Right.
    */

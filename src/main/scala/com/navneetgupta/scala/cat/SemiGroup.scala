@@ -3,7 +3,7 @@ package com.navneetgupta.scala.cat
 import cats.Semigroup
 //import scalaz._
 
-object SemiGroup extends App {
+object SemiGroupEx2 extends App {
 
   /*
    * A semigroup for some given type A has a single operation (which we will call combine), which takes two values of type A,

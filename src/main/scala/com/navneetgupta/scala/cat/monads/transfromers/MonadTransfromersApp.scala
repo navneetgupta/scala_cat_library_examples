@@ -11,6 +11,7 @@ import scala.concurrent.duration._
 object MonadTransfromersApp extends App {
 
   case class User(name: String, email: String, mobile: Option[String] = None)
+
   def loopkup(id: String): Either[Error, Option[String]] = {
     for {
       optUser <- getUserById(id)
@@ -22,6 +23,20 @@ object MonadTransfromersApp extends App {
       }
     }
   }
+
+  //  def compose[M1[_]: Monad, Option[_]: Monad] = {
+  //    type Composed[A] = M1[Option[A]]
+  //    new Monad[Composed] {
+  //      def pure[A](a: A): Composed[A] =
+  //        a.pure[Option].pure[M1]
+  //      def flatMap[A, B](fa: Composed[A])(f: A => Composed[B]): Composed[B] =
+  //        fa.flatMap(_.fold(None.pure[M])(f))
+  //    }
+  //  }
+
+  //  def flatMap[A, B](fa: Composed[A])
+  //    (f: A => Composed[B]): Composed[B] =
+  //
 
   /**
    * The user may or may not be present, so we return an Option[User].
@@ -73,9 +88,9 @@ object MonadTransfromersApp extends App {
   type FutureEither[A] = EitherT[Future, String, A]
   type FutureEitherOption[A] = OptionT[FutureEither, A]
 
-//  val futureEitherOr: FutureEitherOption[Int] =
-//    for {
-//      a <- 10.pure[FutureEitherOption]
-//      b <- 32.pure[FutureEitherOption]
-//    } yield a + b
+  //  val futureEitherOr: FutureEitherOption[Int] =
+  //    for {
+  //      a <- 10.pure[FutureEitherOption]
+  //      b <- 32.pure[FutureEitherOption]
+  //    } yield a + b
 }
