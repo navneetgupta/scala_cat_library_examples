@@ -1,6 +1,6 @@
 package com.navneetgupta.scala.cat.functors
 
-object InvariantFucntorEx {
+object InvariantFunctorEx extends App {
   /**
    * Invariant Functor Type classes represents building a bidirectional chain of operation.
    *
@@ -14,9 +14,14 @@ object InvariantFucntorEx {
    */
 
   trait Codec[A] {
+    self =>
+
     def encode(value: A): String
     def decode(value: String): A
-    def imap[B](dec: A => B, enc: B => A): Codec[B] = ???
+    def imap[B](dec: A => B, enc: B => A): Codec[B] = new Codec[B] {
+      override def encode(value: B): String = self.encode(enc(value))
+      override def decode(value: String): B = dec(self.decode(value))
+    }
   }
 
   def encode[A](value: A)(implicit c: Codec[A]): String = c.encode(value)
@@ -41,6 +46,17 @@ object InvariantFucntorEx {
   println(encode("1"))
   println(encode("true"))
   println(encode("false"))
+
+  implicit val doubleCode: Codec[Double] = stringCodec.imap(_.toDouble, _.toString)
+
   //  decode("false")
   //  decode("false")
+
+  final case class Box[A](value: A)
+
+  implicit def boxCodec[A](implicit codec: Codec[A]) = codec.imap[Box[A]](a => Box(a), b => b.value)
+
+  println(encode(Box("2323")))
+  println(encode(Box("1")))
+  println(encode(Box("true")))
 }
