@@ -9,6 +9,7 @@ object SemiGroupEx2 extends App {
    * A semigroup for some given type A has a single operation (which we will call combine), which takes two values of type A,
    * and returns a value of type A. This operation must be guaranteed to be associative.
    * */
+
   import cats.implicits._
 
   println(Semigroup[Int].combine(1, 2))

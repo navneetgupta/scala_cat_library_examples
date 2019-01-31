@@ -1,7 +1,7 @@
 package com.navneetgupta.scala.cat.monads
 
 import cats._
-import cats.{ Monad => Cmonad }
+import cats.{Monad => Cmonad}
 import cats.implicits._
 import scala.concurrent.Future
 import scala.concurrent.Await
@@ -30,24 +30,26 @@ object CatsMonad extends App {
   println(list3)
 
   /**
-   *
-   * Unlike the methods on the Future class itself, the pure and flatMap methods on the monad can’t accept implicit
-   * ExecutionContext parameters (because the parameters aren’t part of the defini􏰀ons in the Monad trait).
-   * To work around this, Cats requires us to have an ExecutionContext in scope when we summon a Monad for Future:
-   *
-   */
+    *
+    * Unlike the methods on the Future class itself, the pure and flatMap methods on the monad can’t accept implicit
+    * ExecutionContext parameters (because the parameters aren’t part of the defini􏰀ons in the Monad trait).
+    * To work around this, Cats requires us to have an ExecutionContext in scope when we summon a Monad for Future:
+    *
+    */
+
   import scala.concurrent.ExecutionContext.Implicits.global
+
   val fm = Cmonad[Future]
 
   val future = fm.flatMap(fm.pure(1))(x => fm.pure(x + 2))
   Await.result(future, 1.second)
 
-  def sumSquare[F[_]: Cmonad](a: F[Int], b: F[Int]): F[Int] = a.flatMap(x => b.map(y => x * x + y * y))
+  def sumSquare[F[_] : Cmonad](a: F[Int], b: F[Int]): F[Int] = a.flatMap(x => b.map(y => x * x + y * y))
 
   println(sumSquare(Option(3), Option(4)))
   println(sumSquare(List(1, 2, 3), List(4, 5)))
 
-  def sumSquare2[F[_]: Cmonad](a: F[Int], b: F[Int]): F[Int] = for {
+  def sumSquare2[F[_] : Cmonad](a: F[Int], b: F[Int]): F[Int] = for {
     x <- a
     y <- b
   } yield x * x + y * y

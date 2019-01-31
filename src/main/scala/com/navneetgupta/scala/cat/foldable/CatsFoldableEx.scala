@@ -32,21 +32,22 @@ object CatsFoldableRightEx extends App {
   println(eval.value)
 
   /**
-   * Foldable provides us with a host of useful methods defined on top of foldLeft.
-   * Many of these are facimiles of familiar methods from the standard library:
-   *
-   * find, exists, forall, toList, isEmpty, nonEmpty, and so on:
-   */
+    * Foldable provides us with a host of useful methods defined on top of foldLeft.
+    * Many of these are facimiles of familiar methods from the standard library:
+    *
+    * find, exists, forall, toList, isEmpty, nonEmpty, and so on:
+    */
   println(Foldable[Option].nonEmpty(Option(42)))
   println(Foldable[List].find(List(1, 2, 3))(_ % 2 == 0))
 
   /**
-   * Cats provides two methods that make use of Monoids:
-   *       1.  combineAll (and its alias fold) combines all elements in the sequence using their Monoid;
-   *       2.  foldMap maps a user-supplied func􏰁on over the sequence and combines the results using a Monoid.
-   */
+    * Cats provides two methods that make use of Monoids:
+    *       1.  combineAll (and its alias fold) combines all elements in the sequence using their Monoid;
+    *       2.  foldMap maps a user-supplied func􏰁on over the sequence and combines the results using a Monoid.
+    */
 
   import cats.instances.int._
+
   println(Foldable[List].combineAll(List(1, 2, 3)))
 
   import cats.instances.string._ // for Monoid
@@ -58,6 +59,7 @@ object CatsFoldableRightEx extends App {
 }
 
 object CatsFoldableSyntax extends App {
+
   import cats.Eval
   import cats.instances.stream._
   import cats.syntax.foldable._

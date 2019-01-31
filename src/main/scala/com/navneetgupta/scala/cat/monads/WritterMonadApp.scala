@@ -5,8 +5,7 @@ import cats.implicits._
 import cats.data.Writer
 
 object WritterMonadApp extends App {
-  
-  
+
 
   val w = Writer(Vector(
     "It was the best of the time",
@@ -30,13 +29,13 @@ object WritterMonadApp extends App {
   println(b)
 
   /**
-   * We can extract the result and log from a Writer using the value and written methods respec􏰀vely:
-   * We can extract both values at the same 􏰀me using the run method:
-   */
+    * We can extract the result and log from a Writer using the value and written methods respec􏰀vely:
+    * We can extract both values at the same 􏰀me using the run method:
+    */
 
   // Extract Result
   val aResult: Int =
-    a.value
+  a.value
   // Extract Errors
   val aLog: Vector[String] =
     a.written
@@ -59,19 +58,19 @@ object WritterMonadApp extends App {
   println(writer1.run)
 
   /**
-   * In addi􏰀on to transforming the result with map and flatMap, we can transform the log in a Writer with the mapWritten method:
-   *
-   */
+    * In addi􏰀on to transforming the result with map and flatMap, we can transform the log in a Writer with the mapWritten method:
+    *
+    */
 
   val writer2 = writer1.mapWritten(_.map(_.toUpperCase))
 
   println(writer2.run)
 
   /**
-   * We can transform both log and result simultaneously using bimap or mapBoth. 
-   * 		1.	bimap takes two func􏰀on parameters, one for the log and one for the result. 
-   * 		2.	mapBoth takes a single func􏰀on that accepts two parameters:
-   */
+    * We can transform both log and result simultaneously using bimap or mapBoth.
+    * 		1.	bimap takes two func􏰀on parameters, one for the log and one for the result.
+    * 		2.	mapBoth takes a single func􏰀on that accepts two parameters:
+    */
 
   val writer3 = writer1.bimap(
     log => log.map(_.toUpperCase),
@@ -83,19 +82,19 @@ object WritterMonadApp extends App {
     val res2 = res * 1000
     (log2, res2)
   }
-  
+
   println(writer3.run)
   println(writer4.run)
-  
-  
+
+
   /**
-   * Finally, we can clear the log with the reset method and swap log and result with the swap method:
-   */
-  
+    * Finally, we can clear the log with the reset method and swap log and result with the swap method:
+    */
+
   val writer5 = writer1.reset
-  
+
   val writer6 = writer1.swap
-  
+
   println(writer5.run)
   println(writer6.run)
 }

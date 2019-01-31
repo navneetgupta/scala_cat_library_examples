@@ -4,7 +4,9 @@ import cats._
 import cats.implicits._
 
 sealed trait Tree[+A]
+
 case class Branch[A](left: Tree[A], right: Tree[A]) extends Tree[A]
+
 case class Leaf[A](value: A) extends Tree[A]
 
 object Tree {
@@ -19,7 +21,7 @@ object Tree {
     new Functor[Tree] {
       override def map[A, B](value: Tree[A])(f: A => B): Tree[B] = value match {
         case Branch(left, right) => Branch(map(left)(f), map(right)(f))
-        case Leaf(v)             => Leaf(f(v))
+        case Leaf(v) => Leaf(f(v))
       }
     }
 }

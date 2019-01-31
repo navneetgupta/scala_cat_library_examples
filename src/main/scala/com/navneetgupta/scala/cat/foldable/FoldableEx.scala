@@ -5,6 +5,7 @@ import cats.Monoid
 object FoldableEx extends App {
 
   def show[A](list: List[A]): String = list.foldLeft("nil")((accum, item) => s"$item then $accum")
+
   def showRight[A](list: List[A]): String = list.foldRight("nil")((item, accum) => s"$item then $accum")
 
   println(show(Nil))
@@ -15,6 +16,7 @@ object FoldableEx extends App {
   println(showRight(List("Ram", "Shyam", "Ghanshyam")))
 
   def cons1[A](list: List[A]): List[A] = list.foldLeft(Nil: List[A])((acc, item) => item :: acc)
+
   def cons2[A](list: List[A]): List[A] = list.foldRight(Nil: List[A])((item, acc) => item :: acc)
 
   println(cons1(Nil))
@@ -29,7 +31,9 @@ object FoldableEx extends App {
   def flatMap[A, B](list: List[A], fun: A => List[B]): List[B] = list.foldRight(Nil: List[B])((item, acc) => fun(item) ++ acc)
 
   val l = List(1, 2, 3)
+
   def double(x: Int): Int = x * 2
+
   println(map(l, double))
 
   def toList(x: Int): List[Int] = List(x * 4)

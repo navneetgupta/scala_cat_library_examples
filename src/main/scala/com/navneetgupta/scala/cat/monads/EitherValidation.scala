@@ -6,11 +6,15 @@ import cats.implicits._
 object EitherValidation extends App {
 
   sealed trait LoginError extends Product with Serializable
+
   final case class UserNotFound(username: String) extends LoginError
+
   final case class PasswordIncorrect(username: String) extends LoginError
+
   case object UnexpectedError extends LoginError
 
   case class User(username: String, password: String)
+
   type LoginResult = Either[LoginError, User]
 
   // Choose error-handling behaviour based on type:
@@ -23,6 +27,7 @@ object EitherValidation extends App {
       case UnexpectedError =>
         println(s"Unexpected error")
     }
+
   val result1: LoginResult = User("dave", "passw0rd").asRight
   // result1: LoginResult = Right(User(dave,passw0rd))
   val result2: LoginResult = UserNotFound("dave").asLeft // result2: LoginResult = Left(UserNotFound(dave))

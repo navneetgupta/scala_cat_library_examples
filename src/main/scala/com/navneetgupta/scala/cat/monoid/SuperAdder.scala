@@ -1,6 +1,6 @@
 package com.navneetgupta.scala.cat.monoid
 
-import cats.{ Monoid => Cmonoid }
+import cats.{Monoid => Cmonoid}
 import cats.instances.int._ // for Monoid
 import cats.syntax.semigroup._
 import cats.instances.option._
@@ -20,11 +20,13 @@ object SuperAdder extends App {
   println(add2(List(): List[Int]))
   println(add2(List(Option(1), Option(2), Option(3))))
   println(add2(List(Some(1), None, Some(2), None, Some(3))))
+
   case class Order(totalCost: Double, quantity: Double)
 
   implicit val orderMonoid: Cmonoid[Order] =
     new Cmonoid[Order] {
       def combine(x: Order, y: Order): Order = Order(x.totalCost + y.totalCost, x.quantity + y.quantity)
+
       def empty = Order(0.0, 0.0)
     }
 

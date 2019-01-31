@@ -3,6 +3,7 @@ package com.navneetgupta.scala.cat
 import cats._
 
 object ApplyExample extends App {
+
   import cats.implicits._
 
   //Already defined in the cats library
@@ -64,11 +65,11 @@ object ApplyExample extends App {
   println(Apply[Option].tuple2(Some(1), Some(2))) // Some((1,2))
   println(Apply[Option].tuple3(Some(1), Some(2), Some(3))) // Some((1,2,3))
 
-  val option2 = Option(1) |@| Option(2)
-  val option3 = option2 |@| Option.empty[Int]
+  val option2 = (Option(1),Option(2))
+  val option3: (Option[Int], Option[Int], Option[Int]) = (Option(1), Option(2), Option.empty[Int])
 
-  println(option2 map addArity2) // Some(3)
-  println(option3 map addArity3) // None
+  println(option2 mapN addArity2) // Some(3)
+  println(option3 mapN addArity3) // None
 
   println(option2 apWith Some(addArity2)) // Some(3)
   println(option3 apWith Some(addArity3)) // None

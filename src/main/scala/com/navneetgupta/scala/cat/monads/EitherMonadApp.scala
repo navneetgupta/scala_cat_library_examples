@@ -1,6 +1,7 @@
 package com.navneetgupta.scala.cat.monads
 
 object EitherMonadApp extends App {
+
   import cats.syntax.either._
 
   val either1: Either[String, Int] = Right(10)
@@ -41,10 +42,10 @@ object EitherMonadApp extends App {
   //    }
 
   /**
-   *  The Above code fails for two reasons:
-   *       1. the compiler infers the type of the accumulator as Right instead of Either;
-   *       2. we didn’t specify type parameters for Right.apply so the compiler infers the left􏰃 parameter as Nothing.
-   */
+    * The Above code fails for two reasons:
+    *       1. the compiler infers the type of the accumulator as Right instead of Either;
+    *       2. we didn’t specify type parameters for Right.apply so the compiler infers the left􏰃 parameter as Nothing.
+    */
   def countPositive(nums: List[Int]) =
     nums.foldLeft(0.asRight[String]) { (accumulator, num) =>
       if (num > 0) {

@@ -6,10 +6,10 @@ import cats.implicits._
 object EvalMonad extends App {
 
   /**
-   * Eager, Lazy, Memoized, Oh My!
-   *
-   * Scala vals are eager and memoized.
-   */
+    * Eager, Lazy, Memoized, Oh My!
+    *
+    * Scala vals are eager and memoized.
+    */
 
   val x = {
     println("Computing X")
@@ -22,9 +22,9 @@ object EvalMonad extends App {
   println(x)
 
   /**
-   * By contrast, defs are lazy and not memoized.
-   * The code to compute y below is not run un􏰀l we access it (lazy), and is re-run on every access (not memoized):
-   */
+    * By contrast, defs are lazy and not memoized.
+    * The code to compute y below is not run un􏰀l we access it (lazy), and is re-run on every access (not memoized):
+    */
   def y = {
     println("Computing X")
     math.random
@@ -35,8 +35,8 @@ object EvalMonad extends App {
   println(y) //  this prints "Computing X"
 
   /**
-   * lazy vals are lazy and memoized.
-   */
+    * lazy vals are lazy and memoized.
+    */
 
   lazy val z = {
     println("Computing X")
@@ -71,20 +71,26 @@ object EvalMonad extends App {
   println(always.value)
   println("=======================")
   /**
-   * Like all monads, Eval's map and flatMap methods add computa􏰀ons to a chain.
-   */
+    * Like all monads, Eval's map and flatMap methods add computa􏰀ons to a chain.
+    */
   val greeting = Eval.
-    always { println("Step 1"); "Hello" }.
+    always {
+      println("Step 1"); "Hello"
+    }.
     map { str => println("Step 2"); s"$str world" }
   println("=======================")
   println(greeting.value)
   println("=======================")
   /**
-   * while the seman􏰀cs of the origina􏰀ng Eval instances are maintained, mapping func􏰀ons are always called lazily on demand (def seman􏰀cs):
-   */
+    * while the seman􏰀cs of the origina􏰀ng Eval instances are maintained, mapping func􏰀ons are always called lazily on demand (def seman􏰀cs):
+    */
   val ans = for {
-    a <- Eval.now { println("Calculating A"); 40 }
-    b <- Eval.always { println("Calculating B"); 2 }
+    a <- Eval.now {
+      println("Calculating A"); 40
+    }
+    b <- Eval.always {
+      println("Calculating B"); 2
+    }
   } yield {
     println("Adding A and B")
     a + b
@@ -96,7 +102,9 @@ object EvalMonad extends App {
 
   // Important
   val saying = Eval.
-    always { println("Step 1"); "The cat" }.
+    always {
+      println("Step 1"); "The cat"
+    }.
     map { str => println("Step 2"); s"$str sat on" }.
     memoize.
     map { str => println("Step 3"); s"$str the mat" }
@@ -116,6 +124,7 @@ object EvalMonad extends App {
     } else {
       Eval.defer(factorial2(n - 1).map(_ * n))
     }
+
   println(factorial2(50000).value)
 
   def foldRight[A, B](as: List[A], acc: B)(fn: (A, B) => B): B = as match {

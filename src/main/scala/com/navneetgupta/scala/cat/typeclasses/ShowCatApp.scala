@@ -14,6 +14,7 @@ object Cat {
       s"${cat.name} is a ${cat.age} year-old ${cat.color} cat."
     })
 }
+
 object ShowCatApp extends App {
   println(Cat("Tom", 10, "Grey").show)
 }

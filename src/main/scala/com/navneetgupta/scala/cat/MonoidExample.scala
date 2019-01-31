@@ -10,6 +10,7 @@ object MonoidExample extends App {
    * */
 
   import cats.implicits._
+
   println(Monoid[String].empty)
   println(Monoid[String].combineAll(List("a", "b", "c")))
   println(Monoid[String].combineAll(List()))

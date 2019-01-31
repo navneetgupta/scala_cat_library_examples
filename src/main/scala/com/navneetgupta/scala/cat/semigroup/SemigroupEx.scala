@@ -4,6 +4,7 @@ import cats.Semigroup
 import cats.implicits._
 
 object SemigroupEx extends App {
+
   import cats.syntax.either._ // for catchOnly
 
   // Either Monad
@@ -48,10 +49,12 @@ object SemigroupEx extends App {
   println(Semigroupal.map2(Option(1), Option.empty[Int])(_ + _))
 
   import cats.syntax.apply._
+
   println((Option(123), Option("abc")).tupled)
   println((Option(123), Option("abc"), Option(true)).tupled)
 
   case class Cat(name: String, born: Int, color: String)
+
   println((Option("Garfield"), Option(1978), Option("Orange & black")).mapN(Cat.apply))
 
 }

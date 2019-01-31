@@ -5,25 +5,28 @@ import cats.implicits._
 import cats.data.Reader
 
 object LoginSystemWithReaderMonad extends App {
+
   case class Db(
-    username: Map[Int, String],
-    password: Map[String, String])
+                 username: Map[Int, String],
+                 password: Map[String, String])
 
   type DbReader[A] = Reader[Db, A]
 
   def findUsername(userId: Int): DbReader[Option[String]] = Reader(db => db.username.get(userId))
 
   def checkPassword(
-    username: String,
-    password: String): DbReader[Boolean] =
+                     username: String,
+                     password: String): DbReader[Boolean] =
     Reader(db => db.password.get(username).contains(password))
 
   def checkLogin(
-    userId: Int,
-    password: String): DbReader[Boolean] =
+                  userId: Int,
+                  password: String): DbReader[Boolean] =
     for {
       usernameOpt <- findUsername(userId)
-      isValid <- usernameOpt.map { username => checkPassword(username, password) }.getOrElse { false.pure[DbReader] }
+      isValid <- usernameOpt.map { username => checkPassword(username, password) }.getOrElse {
+        false.pure[DbReader]
+      }
     } yield isValid
 
   val usernameMap = Map(1 -> "One", 2 -> "Two", 3 -> "Three", 4 -> "Four")

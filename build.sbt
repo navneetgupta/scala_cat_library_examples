@@ -1,4 +1,4 @@
-import Dependencies._
+
 
 name := "scala_cat_library_examples"
 
@@ -15,7 +15,7 @@ scalacOptions ++= Seq(
 )
 
 libraryDependencies ++= {
-  val catVersion = "1.2.0"
+  val catVersion = "1.5.0"
   Seq(
     "org.typelevel" %% "cats-core" % catVersion,
     "org.typelevel" %% "cats-macros" % catVersion,
@@ -23,6 +23,6 @@ libraryDependencies ++= {
     "org.typelevel" %% "cats-laws" % catVersion,
     "org.typelevel" %% "cats-free" % catVersion,
     "org.typelevel" %% "cats-free" % catVersion,
-    "org.typelevel" %% "cats-effect" % "1.0.0-RC2"
+    "org.typelevel" %% "cats-effect" % "1.2.0"
   )
 }

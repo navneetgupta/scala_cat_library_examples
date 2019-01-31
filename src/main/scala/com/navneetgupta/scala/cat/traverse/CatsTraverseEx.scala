@@ -21,13 +21,14 @@ trait Data {
 }
 
 object CatsTraverseSyntaxEx extends App with Data {
+
   import cats.syntax.traverse._
 
   // let's for demo
-  def getUptime(hostname: String): Future[Int] =
-    Future(hostname.length * 60)
-
-  println(Await.result(hostnames.traverse(getUptime), 1.second))
+//  def getUptime(hostname: String): Future[Int] =
+//    Future(hostname.length * 60)
+//
+//  println(Await.result(hostnames.traverse(getUptime), 1.second))
   val l = numbers.sequence
   println(Await.result(l, 2.second))
 

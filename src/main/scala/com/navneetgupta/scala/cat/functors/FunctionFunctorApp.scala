@@ -10,8 +10,8 @@ object FunctionFunctorApp extends App {
   val func2: Double => Double =
     (x: Double) => x * 2
 
-  println((func1 map func2)(1))
-  println((func1 andThen func2)(1))
+  println((func1 map func2) (1))
+  println((func1 andThen func2) (1))
   println((func2(func1(1))))
 
   val func =

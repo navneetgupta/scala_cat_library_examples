@@ -1,13 +1,13 @@
 package com.navneetgupta.scala.cat.typeclasses
 
 /**
- * Type Class Instances
- *
- * The instances of a type class provide implementa􏰀ons for the types we care about,
- * including types from the Scala standard library and types from our do- main model.
- * In Scala we define instances by crea􏰀ng concrete implementa􏰀ons of the type class
- * and tagging them with the implicit keyword:
- */
+  * Type Class Instances
+  *
+  * The instances of a type class provide implementa􏰀ons for the types we care about,
+  * including types from the Scala standard library and types from our do- main model.
+  * In Scala we define instances by crea􏰀ng concrete implementa􏰀ons of the type class
+  * and tagging them with the implicit keyword:
+  */
 object JsonWritterInstances {
   implicit val stringWritter: JsonWritter[String] =
     new JsonWritter[String] {

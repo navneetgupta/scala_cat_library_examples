@@ -7,14 +7,14 @@ import cats.data.State
 object StateMonadApp extends App {
 
   /**
-   * State[S, A] is a function S => (S,A)
-   * where A is response/result type
-   *
-   * i.e.
-   * , an instance of State is a func􏰀on that does two things:
-   *       • transforms an input state to an output state;
-   *       • computes a result.
-   */
+    * State[S, A] is a function S => (S,A)
+    * where A is response/result type
+    *
+    * i.e.
+    * , an instance of State is a func􏰀on that does two things:
+    * • transforms an input state to an output state;
+    * • computes a result.
+    */
   val a = State[Int, String] { state =>
     (state, s"The state is $state")
   }
@@ -22,9 +22,9 @@ object StateMonadApp extends App {
   println(a)
 
   /**
-   * State provides three methods—run, runS, and runA—that return different combina􏰀ons of state and result.
-   * Each method returns an instance of Eval, which State uses to maintain stack safety.
-   */
+    * State provides three methods—run, runS, and runA—that return different combina􏰀ons of state and result.
+    * Each method returns an instance of Eval, which State uses to maintain stack safety.
+    */
 
   val (state, result) = a.run(10).value
   println(state + "    " + result)
@@ -37,9 +37,9 @@ object StateMonadApp extends App {
   // The state is 10
 
   /**
-   * As we’ve seen with Reader and Writer, the power of the State monad comes from combining instances.
-   * The map and flatMap methods thread the state from one instance to another.
-   */
+    * As we’ve seen with Reader and Writer, the power of the State monad comes from combining instances.
+    * The map and flatMap methods thread the state from one instance to another.
+    */
 
   val step1 = State[Int, String] { num =>
     val ans = num + 1

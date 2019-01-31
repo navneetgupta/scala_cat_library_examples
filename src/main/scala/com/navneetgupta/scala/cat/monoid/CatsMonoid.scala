@@ -24,11 +24,13 @@ object CatsMonoid extends App {
   println(Monoid[Option[Int]].empty)
 
   /**
-   * Cats provides syntax for the combine method in the form of the |+| operator.
-   * Because combine technically comes from Semigroup,
-   * we access the syntax by impor􏰀ng from cats.syntax.semigroup:
-   */
+    * Cats provides syntax for the combine method in the form of the |+| operator.
+    * Because combine technically comes from Semigroup,
+    * we access the syntax by impor􏰀ng from cats.syntax.semigroup:
+    */
+
   import cats.syntax.semigroup._
+
   println("Hi " |+| "there" |+| Monoid[String].empty)
   println(1 |+| 2 |+| Monoid[Int].empty)
   println(Option(32) |+| Option(33) |+| Option.empty[Int])

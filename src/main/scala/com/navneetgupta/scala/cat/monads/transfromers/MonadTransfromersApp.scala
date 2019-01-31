@@ -39,22 +39,22 @@ object MonadTransfromersApp extends App {
   //
 
   /**
-   * The user may or may not be present, so we return an Option[User].
-   * Our communication􏰀 with the database could fail for many reasons (network issues, authen􏰀ca􏰀on problems, and so on),
-   * so this result is wrapped up in an Either, giving us a final result of Either[Error, Option[User]]
-   */
+    * The user may or may not be present, so we return an Option[User].
+    * Our communication􏰀 with the database could fail for many reasons (network issues, authen􏰀ca􏰀on problems, and so on),
+    * so this result is wrapped up in an Either, giving us a final result of Either[Error, Option[User]]
+    */
   def getUserById(id: String): Either[Error, Option[User]] = ???
 
   /**
-   * In above lookup Function we have to use flatmap (for-yield) combination
-   * Multiple time to get the desired result.
-   */
+    * In above lookup Function we have to use flatmap (for-yield) combination
+    * Multiple time to get the desired result.
+    */
 
   /**
-   * Can we Compose two or more monad?
-   * Not In General But if we know about one or another Monad we can Compose.
-   * This is where Monad Transformers Comes in place
-   */
+    * Can we Compose two or more monad?
+    * Not In General But if we know about one or another Monad we can Compose.
+    * This is where Monad Transformers Comes in place
+    */
 
   import cats.data.OptionT
 
