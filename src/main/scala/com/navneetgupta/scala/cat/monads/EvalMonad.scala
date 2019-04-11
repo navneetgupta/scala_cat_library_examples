@@ -75,7 +75,8 @@ object EvalMonad extends App {
     */
   val greeting = Eval.
     always {
-      println("Step 1"); "Hello"
+      println("Step 1");
+      "Hello"
     }.
     map { str => println("Step 2"); s"$str world" }
   println("=======================")
@@ -86,10 +87,12 @@ object EvalMonad extends App {
     */
   val ans = for {
     a <- Eval.now {
-      println("Calculating A"); 40
+      println("Calculating A");
+      40
     }
     b <- Eval.always {
-      println("Calculating B"); 2
+      println("Calculating B");
+      2
     }
   } yield {
     println("Adding A and B")
@@ -103,7 +106,8 @@ object EvalMonad extends App {
   // Important
   val saying = Eval.
     always {
-      println("Step 1"); "The cat"
+      println("Step 1");
+      "The cat"
     }.
     map { str => println("Step 2"); s"$str sat on" }.
     memoize.

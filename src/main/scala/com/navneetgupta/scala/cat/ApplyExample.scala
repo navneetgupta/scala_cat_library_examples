@@ -65,7 +65,7 @@ object ApplyExample extends App {
   println(Apply[Option].tuple2(Some(1), Some(2))) // Some((1,2))
   println(Apply[Option].tuple3(Some(1), Some(2), Some(3))) // Some((1,2,3))
 
-  val option2 = (Option(1),Option(2))
+  val option2 = (Option(1), Option(2))
   val option3: (Option[Int], Option[Int], Option[Int]) = (Option(1), Option(2), Option.empty[Int])
 
   println(option2 mapN addArity2) // Some(3)

@@ -3,6 +3,7 @@ package com.navneetgupta.scala.cat.monads
 import cats._
 import cats.{Monad => Cmonad}
 import cats.implicits._
+import cats.syntax.all._
 import scala.concurrent.Future
 import scala.concurrent.Await
 import scala.concurrent.duration._
@@ -21,6 +22,7 @@ object CatsMonad extends App {
 
   println(list1)
 
+  println(2.pure[String])
   val list2 = Cmonad[List].
     flatMap(List(1, 2, 3))(a => List(a, a * 10))
 
